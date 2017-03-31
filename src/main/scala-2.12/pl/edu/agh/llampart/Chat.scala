@@ -107,6 +107,8 @@ class Chat(userName: String) extends ReceiverAdapter with StrictLogging[Chat] {
         case (ch, users) =>
           rooms.put(ch, new Room(ch, userName, onRoomReceive, users.to[MSet]))
       }
+    case _ =>
+      logger.error("Unknown format of message!")
   }
 
   def onRoomReceive(roomId: String)(src: String, msg: String): Unit = if (roomId == selectedRoom) {
